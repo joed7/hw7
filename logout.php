@@ -6,5 +6,5 @@
 //Date : 24-Feb-2016
 session_start();
 session_destroy();
-header("Location: /hw6/login.php");
+header("Location: /hw7/login.php");
 ?>
