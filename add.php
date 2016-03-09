@@ -744,7 +744,7 @@ function insertLogin($db,$userId,$action){
 
 	try{				
 		if($stmt != null){
-			mysqli_stmt_bind_param($stmt,"ssss",$clientIp,$userId,NOW(),$action);
+			mysqli_stmt_bind_param($stmt,"ssss",$clientIp,$userId,'NOW()',$action);
 			mysqli_stmt_execute($stmt);
 			mysqli_stmt_close($stmt);
 		}
