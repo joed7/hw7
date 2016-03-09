@@ -737,7 +737,7 @@ function authenticate($db,$postUser,$postPass){
 
 function insertLogin($db,$userId,$action){
 
-	$query = "insert into login set loginid='',ip=?,user=?,date=?,status=?";
+	$query = "insert into login set loginid='',ip=?,user=?,date=?,action=?";
 	$clientIp = $_SERVER['REMOTE_ADDR'] ;
 
 	$stmt = mysqli_prepare($db,$query);
