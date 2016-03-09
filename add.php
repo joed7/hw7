@@ -38,6 +38,10 @@ if (isset($_SESSION['authenticated']) && $_SESSION['authenticated'] == "yes"){
 		header("Location:/hw7/login.php");
 	}
 	connect($db);
+
+	$ip = $_SERVER['REMOTE_ADDR']; 
+	$attemps = checkIncorrectLoginAttempts($db,$ip);
+
 	if (!authenticate($db,$uname,$pwd) ){
 		header("Location:/hw7/login.php");
 	}else{
@@ -731,6 +735,46 @@ function authenticate($db,$postUser,$postPass){
 	return false;
 
 }
+
+
+
+function checkIncorrectLoginAttempts($db,$clientIp){
+
+	$query = "select count(*) as count 
+			FROM login where status=? and 
+			date > DATE_SUB(NOW(),INTERVAL 1 HOUR) and ip=?";
+	
+	$failed_attempt = '';
+
+
+	$stmt = mysqli_prepare($db,$query);
+
+	try{				
+		if($stmt != null){
+			mysqli_stmt_bind_param($stmt,"ss",'failed',$clientIp);
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_bind_result($stmt,$count);
+
+			while(mysqli_stmt_fetch($stmt)){
+				 $failed_attempt =$count;
+			}
+			var_dump($failed_attempt);
+
+			mysqli_stmt_close($stmt);
+
+  			return $failed_attempt;
+
+		}
+
+	}catch(Exception $e){
+		print "<b>Some error Occured"; 
+	 	exit;
+	}
+
+	return 0;
+
+}
+
 
 
 
