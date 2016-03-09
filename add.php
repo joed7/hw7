@@ -741,7 +741,7 @@ function authenticate($db,$postUser,$postPass){
 function checkIncorrectLoginAttempts($db,$clientIp){
 
 	$query = "select count(*) as count 
-			FROM login where status=? and 
+			FROM login where status='failed' and 
 			date > DATE_SUB(NOW(),INTERVAL 1 HOUR) and ip=?";
 	
 	$failed_attempt = '';
@@ -751,7 +751,7 @@ function checkIncorrectLoginAttempts($db,$clientIp){
 
 	try{				
 		if($stmt != null){
-			mysqli_stmt_bind_param($stmt,"ss",'failed',$clientIp);
+			mysqli_stmt_bind_param($stmt,"s",$clientIp);
 			mysqli_stmt_execute($stmt);
 			mysqli_stmt_bind_result($stmt,$count);
 
