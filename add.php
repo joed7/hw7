@@ -367,6 +367,14 @@ function handleCharacterForm(){
 			}
 
 				break;	
+			case 95:
+				if (!adminCheck()){
+					$out = $out."<b> ERROR: </b> Not authorized to access this privilege";
+				}else{
+					connect($db);
+					$out = $out . generateFailedLoginReport();
+				}
+				break;
 			default:
 				$out = $out . showCharacterForm();
 
@@ -397,7 +405,9 @@ function showAuthFooterLink(){
 		return "<a href=logout.php>Logout</a>|
 	<a href=add.php?s=90>Add User</a>|
 	<a href=add.php?s=92>Update password</a>|
-	<a href=add.php?s=94>ShowUsers</a>";		
+	<a href=add.php?s=94>ShowUsers</a>
+	<a href=add.php?s=95>Loginreport</a>
+	";
 	}else{
 		return "<a href=logout.php>Logout</a>";
 	}
@@ -790,8 +800,10 @@ function insertLogin($db,$userId,$action){
 		if($stmt != null){
 			mysqli_stmt_bind_param($stmt,"sss",$clientIp,$userId,$action);
 			mysqli_stmt_execute($stmt);
-			mysqli_stmt_close($stmt);
 		}
+
+	
+		mysqli_stmt_close($stmt);
 
 	}catch(Exception $e){
 		print "<b>Some error Occured"; 
@@ -799,6 +811,42 @@ function insertLogin($db,$userId,$action){
 	}
 
 	return 0;
+
+}
+
+function generateFailedLoginReport($db){
+
+	$query = "select ip,count(*) as count from login group by ip order by count desc";
+	$users=array();
+
+	$output = '';
+
+	try{				
+		if($stmt != null){
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_bind_result($stmt,$ip,$count);
+
+		}
+
+	}catch(Exception $e){
+		print "<b>Some error Occured"; 
+	 	exit;
+	}
+
+	$output = '<b>Incorrect Login report</b>';
+	$output = $output . '<table>';
+
+	while(mysqli_stmt_fetch($stmt)){
+		$output = $output.'<tr>';
+		$output = $output.'<td>'.$ip."</td>";
+		$output = $output.'<td>'.$count."</td>";
+		$output = $output.'</tr>';
+	}
+
+	$output = $output . '</table>';	
+	mysqli_stmt_close($stmt);
+
+	return $output;
 
 }
 
