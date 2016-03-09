@@ -737,14 +737,14 @@ function authenticate($db,$postUser,$postPass){
 
 function insertLogin($db,$userId,$action){
 
-	$query = "insert into login set loginid='',ip=?,user=?,date=?,action=?";
+	$query = "insert into login set loginid='',ip=?,user=?,date=NOW(),action=?";
 	$clientIp = $_SERVER['REMOTE_ADDR'] ;
 
 	$stmt = mysqli_prepare($db,$query);
 
 	try{				
 		if($stmt != null){
-			mysqli_stmt_bind_param($stmt,"ssss",$clientIp,$userId,"NOW()",$action);
+			mysqli_stmt_bind_param($stmt,"sss",$clientIp,$userId,$action);
 			mysqli_stmt_execute($stmt);
 			mysqli_stmt_close($stmt);
 		}
