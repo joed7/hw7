@@ -732,4 +732,31 @@ function authenticate($db,$postUser,$postPass){
 
 }
 
+
+
+
+function insertLogin($db,$userId,$action){
+
+	$query = 'insert into login set loginid='', ip=?,user=?,date=?,status=?';
+	$clientIp = $_SERVER['REMOTE_ADDR'] ;
+
+	$stmt = mysqli_prepare($db,$query);
+
+	try{				
+		if($stmt != null){
+			mysqli_stmt_bind_param($stmt,"sss",$clientIp,$userId,NOW(),$action);
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_bind_result($stmt,$count);
+			mysqli_stmt_close($stmt);
+		}
+
+	}catch(Exception $e){
+		print "<b>Some error Occured"; 
+	 	exit;
+	}
+
+	return 0;
+
+}
+
 ?>
