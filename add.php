@@ -40,10 +40,17 @@ if (isset($_SESSION['authenticated']) && $_SESSION['authenticated'] == "yes"){
 	connect($db);
 
 	$ip = $_SERVER['REMOTE_ADDR']; 
+
+	$whitelistIp = getWhiteListIP();
+	$isWhitelistIP = in_array($ip,$whitelistIp);
+
 	$attemps = checkIncorrectLoginAttempts($db,$ip);
 
+	if(!$isWhitelistIP  && $attemps >= 5){
+		header("Location:/hw7/login.php");		
+	}
 
-	if ($attemps >= 5 || !authenticate($db,$uname,$pwd) ){
+	if (!authenticate($db,$uname,$pwd) ){
 		header("Location:/hw7/login.php");
 	}else{
 		handleCharacterForm();
