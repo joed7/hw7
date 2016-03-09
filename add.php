@@ -741,7 +741,7 @@ function authenticate($db,$postUser,$postPass){
 function checkIncorrectLoginAttempts($db,$clientIp){
 
 	$query = "select count(*) as count 
-			FROM login where status='failed' and 
+			FROM login where action='failed' and 
 			date > DATE_SUB(NOW(),INTERVAL 1 HOUR) and ip=?";
 	
 	$failed_attempt = '';
