@@ -824,7 +824,7 @@ function insertLogin($db,$userId,$action){
 
 function generateFailedLoginReport($db){
 
-	$query = "select ip,count(*) as count from login group by ip order by count desc";
+	$query = "select ip,count(*) as count from login where action='failed' group by ip order by count desc";
 	$users=array();
 
 	$output = '';
