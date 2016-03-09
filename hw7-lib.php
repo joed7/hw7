@@ -32,6 +32,11 @@ function connect(&$db){
 	}	
 }
 
+function getWhiteListIP(){
+	$ipList = array();
+	array_push($ipList,'192.18.2.22');
+	return $ipList;
+}
 #$a = Null;
 #connect($a);
 
