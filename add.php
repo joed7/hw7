@@ -708,12 +708,12 @@ function authenticate($db,$postUser,$postPass){
 				$_SESSION['authenticated']="yes";							
 				$_SESSION['ip']=$_SERVER['REMOTE_ADDR'];	
 
-				insertLogin($db,$userId,'success');
+				insertLogin($db,$postUser,'success');
 
 				return true;
 			}else{
 				echo "Failed to login";
-				insertLogin($db,$userId,'failed');
+				insertLogin($db,$postUser,'failed');
 				return false;
 				#header("Location:/hw7/login.php");
 				#exit;
