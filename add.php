@@ -372,7 +372,7 @@ function handleCharacterForm(){
 					$out = $out."<b> ERROR: </b> Not authorized to access this privilege";
 				}else{
 					connect($db);
-					$out = $out . generateFailedLoginReport();
+					$out = $out . generateFailedLoginReport($db);
 				}
 				break;
 			default:
