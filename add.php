@@ -405,7 +405,7 @@ function showAuthFooterLink(){
 		return "<a href=logout.php>Logout</a>|
 	<a href=add.php?s=90>Add User</a>|
 	<a href=add.php?s=92>Update password</a>|
-	<a href=add.php?s=94>ShowUsers</a>
+	<a href=add.php?s=94>ShowUsers</a>|
 	<a href=add.php?s=95>Loginreport</a>
 	";
 	}else{
@@ -820,7 +820,8 @@ function generateFailedLoginReport($db){
 	$users=array();
 
 	$output = '';
-
+	$stmt = mysqli_prepare($db,$query);
+	
 	try{				
 		if($stmt != null){
 			mysqli_stmt_execute($stmt);
