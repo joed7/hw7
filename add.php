@@ -42,7 +42,8 @@ if (isset($_SESSION['authenticated']) && $_SESSION['authenticated'] == "yes"){
 	$ip = $_SERVER['REMOTE_ADDR']; 
 	$attemps = checkIncorrectLoginAttempts($db,$ip);
 
-	if (!authenticate($db,$uname,$pwd) ){
+
+	if ($attemps >= 5 || !authenticate($db,$uname,$pwd) ){
 		header("Location:/hw7/login.php");
 	}else{
 		handleCharacterForm();
@@ -758,7 +759,6 @@ function checkIncorrectLoginAttempts($db,$clientIp){
 			while(mysqli_stmt_fetch($stmt)){
 				 $failed_attempt =$count;
 			}
-			var_dump($failed_attempt);
 
 			mysqli_stmt_close($stmt);
 
