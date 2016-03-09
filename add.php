@@ -708,7 +708,7 @@ function authenticate($db,$postUser,$postPass){
 				$_SESSION['authenticated']="yes";							
 				$_SESSION['ip']=$_SERVER['REMOTE_ADDR'];	
 
-				insertLogin($userId,'success');
+				insertLogin($db,$userId,'success');
 
 				return true;
 			}else{
@@ -732,7 +732,7 @@ function authenticate($db,$postUser,$postPass){
 
 }
 
-function checkIncorrectLoginAttempts($clientIp){
+function checkIncorrectLoginAttempts($db,$clientIp){
 
 	$query = 'SELECT count(*) as count FROM login where status=? and date > DATE_SUB(NOW(),INTERVAL 1 HOUR) and ip=?';
 	
@@ -768,7 +768,7 @@ function checkIncorrectLoginAttempts($clientIp){
 }
 
 
-function insertLogin($userId,$action){
+function insertLogin($db,$userId,$action){
 
 	$query = 'insert into login set loginid='', ip=?,user=?,date=?,status=?';
 	$clientIp = $_SERVER['REMOTE_ADDR'] ;
