@@ -44,6 +44,9 @@ if (isset($_SESSION['authenticated']) && $_SESSION['authenticated'] == "yes"){
 	$whitelistIp = getWhiteListIP();
 	$isWhitelistIP = in_array($ip,$whitelistIp);
 
+	var_dump(whitelistIp);
+	var_dump(isWhitelistIP);
+	
 	$attemps = checkIncorrectLoginAttempts($db,$ip);
 
 	if(!$isWhitelistIP  && $attemps >= 5){
