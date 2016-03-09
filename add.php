@@ -8,7 +8,7 @@
 
 session_start();
 include_once('header.php');
-include_once('/var/www/html/hw6/hw6-lib.php');
+include_once('/var/www/html/hw7/hw7-lib.php');
 
 isset( $_REQUEST['s'] ) ? $s = strip_tags(trim($_REQUEST['s'])) : $s = "";
 isset( $_REQUEST['uname'] ) ? $uname = strip_tags(trim($_REQUEST['uname'])) : $uname = "";
@@ -35,11 +35,11 @@ if (isset($_SESSION['authenticated']) && $_SESSION['authenticated'] == "yes"){
 	handleCharacterForm();
 }else{
 	if($uname == null || $pwd == null){
-		header("Location:/hw6/login.php");
+		header("Location:/hw7/login.php");
 	}
 	connect($db);
 	if (!authenticate($db,$uname,$pwd) ){
-		header("Location:/hw6/login.php");
+		header("Location:/hw7/login.php");
 	}else{
 		handleCharacterForm();
 	}
@@ -715,7 +715,7 @@ function authenticate($db,$postUser,$postPass){
 				echo "Failed to login";
 				insertLogin($userId,'failed');
 				return false;
-				#header("Location:/hw6/login.php");
+				#header("Location:/hw7/login.php");
 				#exit;
 			}
   
