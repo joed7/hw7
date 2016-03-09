@@ -713,7 +713,7 @@ function authenticate($db,$postUser,$postPass){
 				return true;
 			}else{
 				echo "Failed to login";
-				insertLogin($userId,'failed');
+				insertLogin($db,$userId,'failed');
 				return false;
 				#header("Location:/hw7/login.php");
 				#exit;
