@@ -1,7 +1,7 @@
 <?php
 
 //Name: add.php
-//Purpose: PHP file with add character, add user,update password functioanlity
+//Purpose: PHP file with add character, add user,update password functionality, also safe for brute force password attack
 //Author: Rohit Gupta rohit.gupta@colorado.edu
 //Version: 1.0
 //Date : 24-Feb-2016

@@ -3,7 +3,7 @@
 //Purpose: DB connection file
 //Author: Rohit Gupta rohit.gupta@colorado.edu
 //Version: 1.0
-//Date : 24-Feb-2016
+//Date : 13-Mar-2016
 
 function connect(&$db){
 	$mycnf="/etc/hw5-mysql.conf";
